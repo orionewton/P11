@@ -22,14 +22,14 @@
                 <br>
 
                 <img class="product-detail-img"
-                     src="https://static.openfoodfacts.org/images/misc/nutriscore-{{ object.product.nutrition_grade }}.svg"
-                     alt="nutrition score {{ object.product.nutrition_grade }}"
-                     title="Nutri-score {{ object.product.nutrition_grade }}"/>
-                <img class="product-detail-img" src="{{ object.product.nutrition_image}}" alt="nutrition 100g"
+                     src="https://static.openfoodfacts.org/images/misc/nutriscore-{{ product.nutrition_grade }}.svg"
+                     alt="nutrition score {{ product.nutrition_grade }}"
+                     title="Nutri-score {{ product.nutrition_grade }}"/>
+                <img class="product-detail-img" src="{{ product.nutrition_image}}" alt="nutrition 100g"
                      title="Nutrition 100g"/>
                 <br>
 
-                <a href="{{ object.product.url}}" class="btn btn-primary btn-xl mt-50" target="_blank">Voir la fiche
+                <a href="{{ product.url}}" class="btn btn-primary btn-xl mt-50" target="_blank">Voir la fiche
                     Open Food Facts</a>
             </div>
         </div>
