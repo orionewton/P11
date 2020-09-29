@@ -34,7 +34,7 @@
 				            <div class="card-body">
 				            <h4 class="card-title product-card-title">{{ new_product.name }}</h4>
 							
-							<a href="{% url 'catalog:product_detail' product_id=new_product.id %}"> détails</a>
+							<a href="{% url 'catalog:product_detail' new_product.id %}"> détails</a>
 
 							{% if user.is_authenticated %}
 							<div class="save-result" id="{{new_product.id}}"></div>

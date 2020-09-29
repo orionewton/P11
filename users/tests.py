@@ -1,4 +1,4 @@
-from django.test import TestCase, client
+from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
 
@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 class UserViewTests(TestCase):
 
     def setUp(self):
-        user = User.objects.create(username='testuser', password="password")
+        User.objects.create(username='testuser', password="password")
 
     def test_login(self):
         response = self.client.post(reverse('login'),

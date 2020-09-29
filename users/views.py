@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import UserRegisterForm, UserUpdateForm
 
-from catalog.models import UserFavorite, Product
+from catalog.models import Product
 
 # Create your views here.
 
@@ -13,7 +13,7 @@ def register(request):
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get('username')
+            form.cleaned_data.get('username')
             messages.success(request, 'Votre compte a bien été crée')
             return redirect('catalog:index')
     else:
@@ -32,7 +32,7 @@ def profile(request):
     else:
         u_form = UserUpdateForm(instance=request.user)
     context = {'u_form': u_form}
-    return render(request, 'users/profile.html')
+    return render(request, 'users/profile.html', context)
 
 
 @login_required

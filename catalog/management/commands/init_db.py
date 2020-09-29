@@ -1,6 +1,6 @@
 import requests
 
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from django.db.utils import DataError, IntegrityError
 from catalog.models import Category, Product
 
@@ -20,21 +20,21 @@ class Command(BaseCommand):
         'Jambons',
         'Confiseries chocolatées',
         'Soupes'
-        ]
+    ]
 
     def create_db(self):
-        i=0
+        i = 0
         for category in self.CATEGORIES:
             new_category = Category.objects.create(name=category)
             params = {
-                    'action': 'process',
-                    'json': 1,
-                    'page_size': 200,
-                    'page': 1,
-                    'tagtype_0': 'categories',
-                    'tag_contains_0': 'contains',
-                    'tag_0': category,
-                }
+                'action': 'process',
+                'json': 1,
+                'page_size': 200,
+                'page': 1,
+                'tagtype_0': 'categories',
+                'tag_contains_0': 'contains',
+                'tag_0': category,
+            }
 
             response = requests.get(
                 'https://fr.openfoodfacts.org/cgi/search.pl', params=params)
@@ -58,7 +58,7 @@ class Command(BaseCommand):
                         url=url,
                         picture=picture,
                         nutrition_image=nutrition_image)
-                    i+=1
+                    i += 1
 
                 except KeyError:
                     pass
@@ -68,6 +68,7 @@ class Command(BaseCommand):
 
                 except IntegrityError:
                     pass
-        print(i," products add in DB")
+        print(i, " products add in DB")
+
     def handle(self, *args, **options):
         self.create_db()

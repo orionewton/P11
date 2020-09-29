@@ -1,9 +1,6 @@
-from django.test import TestCase, client
+from django.test import TestCase
 from django.urls import reverse
-from django.contrib.auth.models import User
-from django.core.management import call_command
-from io import StringIO
-from .models import Product, Category, UserFavorite
+from .models import Product, Category
 
 # Create your tests here.
 
@@ -30,15 +27,20 @@ class DataTests(TestCase):
                             url='www.pizza.com')
 
     def test_search_returns_200(self):
-        Pizza = str('Pizza')
+        pizza = str('Pizza')
         response = self.client.get(reverse('catalog:search'), {
-            'query': Pizza,
+            'query': pizza,
         })
         self.assertEqual(response.status_code, 200)
 
     def test_search_page_redirect_302(self):
-        Pizza = str('invalid name')
+        pizza = str('invalid name')
         response = self.client.get(reverse('catalog:search'), {
-            'query': Pizza,
+            'query': pizza,
         })
         self.assertEqual(response.status_code, 302)
+
+    def test_details(self):
+        pizza = Product.objects.get(name='Pizza')
+        response = self.client.get(reverse('catalog:product_detail',  args=[pizza.id]))
+        self.assertEqual(response.status_code, 200)

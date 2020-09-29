@@ -1,15 +1,16 @@
-import requests
 import json
 
 from django.shortcuts import render, redirect
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
 from django.views.generic import DetailView
 
-from .models import Product, Category, UserFavorite
+from .models import Product, UserFavorite
+
+
 # Create your views here.
 
 
@@ -22,14 +23,12 @@ def legal(request):
 
 
 def autocomplete(request):
-
     if request.is_ajax():
         query = request.GET.get('term', '')
         products = Product.objects.filter(
             name__icontains=query).order_by("-nutrition_grade")[:10]
         results = []
         for p in products:
-            product_dict = {}
             product_dict = p.name
             results.append(product_dict)
         data = json.dumps(results)
@@ -39,7 +38,6 @@ def autocomplete(request):
 
 
 def search(request):
-
     query = request.GET.get('query')
 
     try:
@@ -62,24 +60,27 @@ def search(request):
 
     except AttributeError:
         messages.warning(request, "Ce produit n'existe pas. "
-                         "Vérifiez l'orthographe de la recherche")
+                                  "Vérifiez l'orthographe de la recherche")
         return redirect('catalog:index')
 
     return render(request, 'catalog/search.html', context)
 
+
 class ProductDetail(DetailView):
+    # Passer pk en urls
     model = Product
     template = 'catalog/product_detail.html'
+
 
 @login_required
 def add_favorite(request, product_id):
     try:
         UserFavorite.objects.get(
-            user_name_id=request.user.id, product_id=(product_id))
+            user_name_id=request.user.id, product_id=product_id)
         messages.warning(request, 'Ce produit est déjà dans vos favoris.')
         return redirect(request.META.get('HTTP_REFERER'))
     except ObjectDoesNotExist:
         UserFavorite.objects.create(
-            user_name_id=request.user.id, product_id=(product_id))
+            user_name_id=request.user.id, product_id=product_id)
         messages.success(request, 'Le produit a bien été enregistré.')
         return redirect(request.META.get('HTTP_REFERER'))
