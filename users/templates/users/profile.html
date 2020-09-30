@@ -6,25 +6,19 @@
             <div class="col-lg-10 mx-auto">
                 <h1 class="text-uppercase">
                     <strong>{{ user.username }}</strong>
-                </h1>                
+                </h1>
             </div>
         </div>
     </div>
 </header>
 <section id="account">
-	<div class="container text-center my-auto">
+    <div class="container text-center my-auto">
         <div>
             <h3>Informations sur mon compte</h3>
             <hr>
             <p>Email: {{ user.email }}</p>
-
-		<div class="section"><span>4</span>Modification</div>
             <div class="inner-wrap text-center">
                 <div class="button-section">
-                    <input id="submitupdatelong" onclick="visibleform()" type="button"
-                           value="Modifier les informations"/>
-                    <input id="submitupdatecours" onclick="visibleform()" type="button"
-                           value="Modifier"/>
                 </div>
             </div>
         </div>
@@ -35,7 +29,7 @@
                     <h1>Modifier les informations</h1>
                     <div class="section">Pseudo actuel : {{ user.username }}</div>
                     <div class="inner-wrap">
-                        <h2 class="">{{ u_form.username }}</h2>
+                        <p class="">{{ u_form.username }}</p>
                     </div>
                     <div class="section">Adresse actuelle : {{ user.email }}</div>
                     <div class="inner-wrap">
@@ -50,7 +44,7 @@
                 </div>
             </form>
         </div>
-        <br>  	
+        <br>
     </div>
 </section>
 {% endblock content %}
