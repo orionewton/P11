@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
 
+
 # Create your tests here.
 
 
@@ -13,19 +14,29 @@ class UserViewTests(TestCase):
     def test_login(self):
         response = self.client.post(reverse('login'),
                                     {'username': 'testuser',
-                                    'password': 'password'}, follow=True)
+                                     'password': 'password'}, follow=True)
         self.assertEqual(response.status_code, 200)
 
     def test_register(self):
         response = self.client.post(reverse('register'),
-                                    {'username': 'test',
+                                    {'username': 'testuser',
                                      'email': 'testuser@email.com',
                                      'password1': 'password',
                                      'password2': 'password'}, follow=True)
         self.assertEqual(response.status_code, 200)
 
-    def test_logout(self):
+    def test_profile(self):
+        self.client.login(username='testuser', password='password')
+        response = self.client.post(reverse('profile'), follow=True)
+        self.assertEqual(response.status_code, 200)
 
+    def test_modif(self):
+        self.client.login(username='testuser', password='password')
+        response = self.client.post(reverse('profile'), {'username': 'test',
+                                                         'email': 'modif@gmail.com'}, follow=True)
+        self.assertEqual(response.status_code, 200)
+
+    def test_logout(self):
         self.client.login(username='testuser', password='password')
         self.client.logout()
         self.assertRaises(

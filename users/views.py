@@ -5,6 +5,7 @@ from .forms import UserRegisterForm, UserUpdateForm
 
 from catalog.models import Product
 
+
 # Create your views here.
 
 
@@ -27,17 +28,18 @@ def profile(request):
         u_form = UserUpdateForm(request.POST, instance=request.user)
         if u_form.is_valid():
             u_form.save()
-            messages.success(request, f'Les informations du profil ont été mises à jour.')
+            messages.success(request, 'Les informations du profil ont été mises à jour.')
             return redirect('profile')
+        else:
+            return render(request, 'users/profile.html', {"Message": "Erreur, profil existant", 'u_form': u_form})
     else:
-        u_form = UserUpdateForm(instance=request.user)
+        u_form = UserUpdateForm()
     context = {'u_form': u_form}
     return render(request, 'users/profile.html', context)
 
 
 @login_required
 def favorite(request):
-
     user = request.user
     fav = Product.objects.filter(userfavorite__user_name=user.id)
     if fav:
