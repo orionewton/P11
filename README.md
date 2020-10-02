@@ -21,4 +21,4 @@
 1. use `python manage.py runserver` on your terminal.
 
 # Note
-Pur_Beurre app has been deployed (and hosted) on Heroku at https://loan-purbeurre.herokuapp.com/
+Pur_Beurre app has been deployed (and hosted) on Heroku at https://p11-loanpurbeurre.herokuapp.com/
