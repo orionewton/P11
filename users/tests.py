@@ -35,6 +35,10 @@ class UserViewTests(TestCase):
         response = self.client.post(reverse('profile'), {'username': 'test',
                                                          'email': 'modif@gmail.com'}, follow=True)
         self.assertEqual(response.status_code, 200)
+        self.client.logout()
+        self.client.login(username='test', password='password')
+        response = self.client.post(reverse('profile'), follow=True)
+        self.assertEqual(response.status_code, 200)
 
     def test_logout(self):
         self.client.login(username='testuser', password='password')
