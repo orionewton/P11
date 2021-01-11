@@ -67,7 +67,6 @@ def search(request):
 
 
 class ProductDetail(DetailView):
-    # Passer pk en urls
     model = Product
     template = 'catalog/product_detail.html'
 
