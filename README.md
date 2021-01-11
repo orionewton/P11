@@ -18,7 +18,4 @@
 4. Acces to all yours favorites products
 
 # Local run:
-1. use `python manage.py runserver` on your terminal.
-
-# Note
-Pur_Beurre app has been deployed (and hosted) on Heroku at https://p11-loanpurbeurre.herokuapp.com/
+1. use `python manage.py runserver` on your terminal
